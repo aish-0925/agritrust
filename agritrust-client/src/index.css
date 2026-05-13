@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Outfit', 'Inter', sans-serif;
+}
+
+/* Animation */
+@keyframes testimonial-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-testimonial-scroll {
+  display: flex;
+  width: max-content;
+  animation: testimonial-scroll 25s linear infinite;
+  will-change: transform;
+}
+
+.animate-testimonial-scroll:hover {
+  animation-play-state: paused;
+}
+
+/* Components */
+@layer components {
+
+  .input {
+    @apply w-full border border-gray-200 px-3 py-2 rounded-lg bg-white
+           focus:outline-none focus:ring-2 focus:ring-green-500
+           transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply bg-green-600 text-white px-6 py-2 rounded-lg
+           hover:bg-green-700 active:scale-95
+           transition-all duration-200 shadow-sm;
+  }
+
+  .card {
+    @apply bg-white p-6 rounded-xl shadow-sm border border-gray-100;
+  }
+}
