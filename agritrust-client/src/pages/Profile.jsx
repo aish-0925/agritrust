@@ -18,7 +18,7 @@ export default function Profile() {
       .then(res => {
         const data = res.data;
 
-        // ✅ flatten payment data
+        // flatten payment data
         if (data.farmerPayment) {
           data.upiId = data.farmerPayment.upiId || "";
           data.accountName = data.farmerPayment.name || "";
@@ -70,9 +70,9 @@ export default function Profile() {
           lat: pos.coords.latitude,
           lng: pos.coords.longitude
         }));
-        setLocationStatus("Location added ✅");
+        setLocationStatus("Location added");
       },
-      () => setLocationStatus("Permission denied ❌")
+      () => setLocationStatus("Permission denied")
     );
   };
 
@@ -104,7 +104,7 @@ export default function Profile() {
         "restaurantName",
         "businessAddress",
 
-        // ✅ PAYMENT
+        //PAYMENT
         "upiId",
         "accountName",
         "accountNumber",
@@ -140,10 +140,10 @@ export default function Profile() {
 
       await api.put("/users/profile", formData);
 
-      setSuccess("Profile updated successfully ✅");
+      setSuccess("Profile updated successfully");
 
     } catch {
-      setError("Update failed ❌");
+      setError("Update failed");
     }
 
     setSaving(false);
@@ -200,7 +200,7 @@ export default function Profile() {
               <input name="farmLocation" value={profile.farmLocation || ""} onChange={change} className="input" />
             </div>
 
-            {/* ✅ PAYMENT */}
+            {/*PAYMENT */}
             <h3 className="font-semibold">Payment Details 💳</h3>
             <div className="grid md:grid-cols-2 gap-4">
               <input name="upiId" value={profile.upiId || ""} onChange={change} placeholder="UPI ID" className="input" />

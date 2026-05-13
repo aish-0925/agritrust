@@ -24,11 +24,11 @@ const handleSubmit = async (e) => {
       form
     );
 
-    // ✅ store auth data
+    //store auth data
     localStorage.setItem("token", res.data.token);
     localStorage.setItem("user", JSON.stringify(res.data.user));
 
-    // ✅ role-based redirect
+    //role-based redirect
     if (res.data.user.role === "restaurant") {
       window.location = "/restaurant/dashboard";
     } else {

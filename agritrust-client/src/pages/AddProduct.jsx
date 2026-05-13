@@ -56,7 +56,6 @@ export default function AddProduct() {
       formData.append("images", img);
     });
 
-    // ✅ ADD THIS
     const token = localStorage.getItem("token");
 
     await api.post("/products", formData, {
@@ -66,11 +65,11 @@ export default function AddProduct() {
       }
     });
 
-    alert("Product added successfully 🚀");
+    alert("Product added successfully");
     navigate("/marketplace");
 
   } catch (err) {
-    console.error(err); // 👈 ADD THIS FOR DEBUG
+    console.error(err); 
     alert(err.response?.data?.message || "Error");
   } finally {
     setLoading(false);

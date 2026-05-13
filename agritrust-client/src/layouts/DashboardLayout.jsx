@@ -6,7 +6,7 @@ import api from "../services/api";
 export default function DashboardLayout({ children }) {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [user, setUser] = useState(null); // ✅ add this
+  const [user, setUser] = useState(null); 
 
   useEffect(() => {
     api.get("/users/profile")
@@ -29,7 +29,7 @@ export default function DashboardLayout({ children }) {
       <div className="flex-1 flex flex-col">
 
         <Navbar
-          user={user} // ✅ now user is real
+          user={user} 
           toggleSidebar={() => setSidebarOpen(prev => !prev)}
         />
 

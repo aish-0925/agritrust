@@ -90,7 +90,7 @@ export default function EditProduct() {
         }
       });
 
-      alert("Product updated successfully ✅");
+      alert("Product updated successfully");
       navigate("/marketplace");
 
     } catch (err) {
@@ -115,7 +115,7 @@ export default function EditProduct() {
         }
       });
 
-      alert("Product deleted 🗑️");
+      alert("Product deleted");
       navigate("/marketplace");
 
     } catch (err) {

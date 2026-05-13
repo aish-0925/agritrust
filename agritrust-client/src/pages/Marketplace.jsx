@@ -12,7 +12,7 @@ export default function Marketplace() {
   /* FETCH PRODUCTS */
   useEffect(() => {
   api.get("/products")
-    .then(res => setProducts(res.data.products)) // 👈 IMPORTANT
+    .then(res => setProducts(res.data.products)) 
     .catch(err => console.log(err));
 }, []);
 

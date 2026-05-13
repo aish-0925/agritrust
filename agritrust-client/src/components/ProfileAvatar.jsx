@@ -6,7 +6,7 @@ export default function ProfileAvatar({ user, size = "md", preview }) {
     lg: "w-16 h-16 text-xl"
   };
 
-  // 🔥 Loading state
+  // Loading state
   if (!user) {
     return (
       <div className={`${sizes[size]} rounded-full bg-gray-200 animate-pulse`} />
@@ -19,7 +19,7 @@ export default function ProfileAvatar({ user, size = "md", preview }) {
     ? `http://localhost:5000${user.profileImage}`
     : null);
 
-  // 🖼️ If image exists
+  // If image exists
   if (imageSrc) {
     return (
       <img
@@ -30,7 +30,7 @@ export default function ProfileAvatar({ user, size = "md", preview }) {
     );
   }
 
-  // 🔤 Fallback initial
+  // Fallback initial
   const initial = user?.name?.charAt(0)?.toUpperCase() || "?";
 
   return (

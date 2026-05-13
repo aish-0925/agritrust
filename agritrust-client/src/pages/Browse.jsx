@@ -36,7 +36,7 @@ export default function Browse() {
       quantity: 1
     });
 
-    alert("Added to cart ✅");
+    alert("Added to cart");
   } catch (err) {
     console.error(err);
     alert(err.response?.data?.message || "Failed to add to cart");
@@ -155,7 +155,7 @@ export default function Browse() {
       {/* EMPTY */}
       {products.length === 0 && (
         <div className="text-center text-green-400 mt-10">
-          No products found 😔
+          No products found 
         </div>
       )}
     </div>
