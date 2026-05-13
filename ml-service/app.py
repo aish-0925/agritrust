@@ -55,12 +55,12 @@ def predict():
     try:
         data = request.json
 
-        # ✅ Validate
+        # Validate
         error = validate_input(data)
         if error:
             return jsonify({"success": False, "error": error}), 400
 
-        # ✅ Preprocess
+        # Preprocess
         input_df = preprocess_input(data)
 
         # ================= PREDICT =================
@@ -104,7 +104,7 @@ def predict():
 # ================= HEALTH =================
 @app.route("/", methods=["GET"])
 def home():
-    return "✅ Crop ML API is running"
+    return "Crop ML API is running"
 
 # ================= RUN =================
 if __name__ == "__main__":

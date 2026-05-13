@@ -43,13 +43,13 @@ model.fit(X_train_encoded, y_train)
 # ================= EVALUATION =================
 y_pred = model.predict(X_test_encoded)
 
-print("\n📊 Classification Report:\n")
+print("\n Classification Report:\n")
 print(classification_report(y_test, y_pred))
 
 accuracy = model.score(X_test_encoded, y_test)
-print("\n✅ Accuracy:", accuracy)
+print("\n Accuracy:", accuracy)
 
 # ================= SAVE =================
 joblib.dump(model, "crop_model.pkl")
 
-print("\n✅ Model saved successfully!")
+print("\n Model saved successfully!")
