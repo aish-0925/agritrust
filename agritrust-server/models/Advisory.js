@@ -30,13 +30,13 @@ const weatherSchema = new mongoose.Schema({
   recordedAt: { type: Date, default: Date.now },
 }, { _id: false });
 
-// ✅ FIXED
+
 const alternativeSchema = new mongoose.Schema({
   crop: String,
   confidence: Number,
 }, { _id: false });
 
-// ✅ FIXED
+
 const mlResultSchema = new mongoose.Schema({
   recommendedCrop: String,
   confidence: Number,
@@ -93,7 +93,7 @@ const advisorySchema = new mongoose.Schema(
     },
 
     input: {
-      location: { type: locationSchema, required: true }, // ✅ FIXED
+      location: { type: locationSchema, required: true }, 
       soil: soilSchema,
       season: {
         type: String,
@@ -110,7 +110,7 @@ const advisorySchema = new mongoose.Schema(
 
     mlResult: mlResultSchema,
 
-    // ✅ FIXED ML INPUT STRUCTURE
+    
     mlInput: {
       district: String,
       taluk: String,
@@ -149,7 +149,7 @@ const advisorySchema = new mongoose.Schema(
 
     decision: {
       finalScore: Number,
-      confidence: Number, // ✅ added
+      confidence: Number, 
       recommendation: {
         type: String,
         enum: ["highly_recommended", "moderate", "avoid"],
@@ -160,7 +160,7 @@ const advisorySchema = new mongoose.Schema(
     finalCrop: {
       type: String,
       required: true,
-      lowercase: true, // ✅ normalize
+      lowercase: true, 
       trim: true
     },
 
@@ -180,7 +180,7 @@ const advisorySchema = new mongoose.Schema(
       diseaseRisk: { type: String, enum: ["low", "medium", "high"] },
     },
 
-    feedback: [feedbackSchema], // ✅ FIXED ARRAY
+    feedback: [feedbackSchema],
 
   },
   {
@@ -205,7 +205,7 @@ advisorySchema.virtual("latestMarket").get(function () {
 // ================= METHODS =================
 
 advisorySchema.methods.addFeedback = function (feedbackData) {
-  this.feedback.push(feedbackData); // ✅ FIXED
+  this.feedback.push(feedbackData); 
   return this.save();
 };
 

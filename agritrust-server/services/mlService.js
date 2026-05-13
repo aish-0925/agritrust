@@ -27,7 +27,7 @@ const fallbackPredictions = (input) => {
     ];
   }
 
-  // 🌵 Dry + hot
+  // Dry + hot
   if (rainfall < 100 && temperature > 30) {
     return [
       { crop: "jowar", confidence: 0.6 },
@@ -36,7 +36,7 @@ const fallbackPredictions = (input) => {
     ];
   }
 
-  // 🌱 Neutral
+  // Neutral
   if (soil_ph >= 6 && soil_ph <= 7.5) {
     return [
       { crop: "maize", confidence: 0.6 },
@@ -56,7 +56,7 @@ const fallbackPredictions = (input) => {
 
 const normalizeResponse = (data) => {
 
-  // ✅ Flask format: { success: true, predictions: [...] }
+  // Flask format: { success: true, predictions: [...] }
   if (data?.success && Array.isArray(data.predictions)) {
     return data.predictions.map((p) => ({
       crop: normalizeCrop(p.crop),
@@ -64,7 +64,7 @@ const normalizeResponse = (data) => {
     }));
   }
 
-  // ✅ Alternative format
+  // Alternative format
   if (data?.crop || data?.recommendedCrop) {
     const mainCrop = data.recommendedCrop || data.crop;
 
@@ -108,7 +108,7 @@ const callML = async (mlInput) => {
 
 exports.getCrop = async (mlInput) => {
   try {
-    // 🔁 Try ML call
+    //Try ML call
     const predictions = await callML(mlInput);
 
     if (!predictions || !predictions.length) {
@@ -120,7 +120,7 @@ exports.getCrop = async (mlInput) => {
   } catch (err) {
     console.error("ML Service Error:", err.message);
 
-    // 🔁 Retry once
+    // Retry once
     try {
       const predictions = await callML(mlInput);
       return { predictions };

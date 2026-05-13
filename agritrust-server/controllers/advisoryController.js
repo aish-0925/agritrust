@@ -267,7 +267,7 @@ exports.getAdvisory = async (req, res) => {
     const result = await getAdvisoryLogic(req.body, req.user.id);
     res.json({ success: true, data: result });
   } catch (err) {
-  console.error("ADVISORY ERROR:", err); // ✅ ADD THIS
+  console.error("ADVISORY ERROR:", err); // ADD THIS
   res.status(500).json({ error: err.message });
 }
 };
@@ -334,7 +334,7 @@ exports.addFeedback = async (req, res) => {
     const advisory = await Advisory.findById(advisoryId);
     if (!advisory) return res.status(404).json({ message: "Not found" });
 
-    advisory.feedback.push(feedback); // ✅ FIXED
+    advisory.feedback.push(feedback); 
     await advisory.save();
 
     res.json({ success: true, message: "Feedback added" });

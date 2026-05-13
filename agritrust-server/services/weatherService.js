@@ -10,7 +10,7 @@ const forecastCache = {};
 const CACHE_DURATION = 10 * 60 * 1000; // 10 mins
 
 if (!API_KEY) {
-  console.warn("⚠️ OpenWeather API key is missing");
+  console.warn("OpenWeather API key is missing");
 }
 
 // ================= HELPERS =================
@@ -128,7 +128,6 @@ exports.getForecast = async (location) => {
     const avgTemp =
       list.reduce((sum, i) => sum + i.main.temp, 0) / list.length;
 
-    // 🔥 IMPROVED INTELLIGENCE
     const rainExpected = totalRain > 30;
     const heavyRain = totalRain > 80;
     const heatWave = avgTemp > 35;

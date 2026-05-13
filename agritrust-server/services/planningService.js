@@ -12,7 +12,7 @@ const getCropPlan = async (cropId, sowingDate, weather = {}) => {
     const data = await CropGrowth.findOne({ cropId });
 
     if (!data) {
-      console.warn("⚠️ No CropGrowth data found for:", cropId);
+      console.warn("No CropGrowth data found for:", cropId);
 
       return {
         totalDays: 0,
@@ -60,7 +60,7 @@ const getCropPlan = async (cropId, sowingDate, weather = {}) => {
     const temperature = weather.temperature || 0;
     const humidity = weather.humidity || 0;
 
-    // 🌧️ Priority-based irrigation logic
+    //Priority-based irrigation logic
     if (rainfall > 100) {
       irrigation = "Skip irrigation due to heavy rainfall";
     } else if (rainfall < 40) {
@@ -69,12 +69,12 @@ const getCropPlan = async (cropId, sowingDate, weather = {}) => {
       irrigation = "Increase irrigation due to high temperature";
     }
 
-    // 🌾 Fertilizer adjustment
+    //Fertilizer adjustment
     if (rainfall > 120) {
       fertilizer = "Delay fertilizer application due to heavy rain";
     }
 
-    // 🐛 Pest / disease detection
+    //Pest / disease detection
     let pestAlert = null;
 
     if (humidity > 80 && temperature > 25) {
@@ -111,7 +111,7 @@ const getCropPlan = async (cropId, sowingDate, weather = {}) => {
     };
 
   } catch (err) {
-    console.error("❌ Error in getCropPlan:", err.message);
+    console.error("Error in getCropPlan:", err.message);
 
     return {
       totalDays: 0,

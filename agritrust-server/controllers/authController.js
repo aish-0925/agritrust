@@ -56,7 +56,7 @@ res.json({
 
 }
 catch (error) {
-  console.error("REGISTER ERROR:", error);   // 👈 ADD THIS
+  console.error("REGISTER ERROR:", error);  
   res.status(500).json({ message: error.message });
 }
 

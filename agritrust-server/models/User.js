@@ -48,8 +48,6 @@ profileImage: {
   default: ""
 },
 
-/* 📍 NEW: Location (IMPORTANT) */
-
 location: {
   lat: Number,
   lng: Number
@@ -96,15 +94,14 @@ restaurantName: {
 
 businessAddress: String,
 
-/* 🔥 IMPROVED */
 
 cuisineTypes: {
-  type: [String],   // was String → now array
+  type: [String],   
   default: []
 },
 
 preferredIngredients: {
-  type: [String],   // 🔥 key for recommendations
+  type: [String],   
   default: []
 },
 

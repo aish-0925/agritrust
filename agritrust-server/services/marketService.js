@@ -8,7 +8,6 @@ exports.getMarketData = async (crop, location = {}) => {
       crop: crop.toLowerCase()
     };
 
-    // 🌍 Optional location filtering
     if (location?.district) {
       query["location.district"] = location.district;
     }

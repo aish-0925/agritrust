@@ -16,7 +16,7 @@ const conditionSchema = new mongoose.Schema({
     min: Number,
     max: Number
   },
-  soil_ph: {   // ✅ changed from ph → soilPH
+  soil_ph: {   
     min: Number,
     max: Number
   }
@@ -26,7 +26,6 @@ const conditionSchema = new mongoose.Schema({
 
 const cropSchema = new mongoose.Schema({
 
-  // ✅ changed from "name"
   crop: {
     type: String,
     required: true,
@@ -46,7 +45,6 @@ const cropSchema = new mongoose.Schema({
     enum: ["kharif", "rabi", "zaid"]
   }],
 
-  // ✅ changed from durationDays
   growthDays: Number,
 
   // Environmental conditions
@@ -58,7 +56,7 @@ const cropSchema = new mongoose.Schema({
     enum: ["low", "medium", "high"]
   },
 
-  // Optional (keep for future scalability)
+  //Optional (keep for future scalability)
   irrigationAdvice: String,
 
   fertilizer: {
@@ -92,7 +90,6 @@ cropSchema.index({ regions: 1 });
 
 // ================= METHODS =================
 
-// ✅ Updated suitability check
 cropSchema.methods.isSuitable = function(input) {
 
   if (!this.conditions) return false;

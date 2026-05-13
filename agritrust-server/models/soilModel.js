@@ -36,7 +36,6 @@ const soilSchema = new mongoose.Schema(
     phosphorus: Number,
     potassium: Number,
 
-    // ✅ Derived insights (very useful)
     fertilityLevel: {
       type: String,
       enum: ["low", "medium", "high"],

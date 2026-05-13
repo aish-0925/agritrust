@@ -38,7 +38,7 @@ exports.createProduct = async (req, res) => {
       unit,
       description,
       organic,
-      farmer: req.user.id, // ✅ FIXED
+      farmer: req.user.id, 
       images
     });
 
@@ -49,7 +49,7 @@ exports.createProduct = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("🔥 ERROR:", error);
+    console.error("ERROR:", error);
     res.status(500).json({
       success: false,
       message: error.message
@@ -69,7 +69,7 @@ exports.getProductById = async (req, res) => {
 
     const product = await Product.findOne({
       _id: req.params.id,
-      farmer: req.user.id   // 🔥 restrict access
+      farmer: req.user.id   //restrict access
     }).populate("farmer", "name farmName");
 
     if (!product) {
@@ -197,7 +197,7 @@ exports.deleteProduct = async (req, res) => {
 /* ───────── GET ALL PRODUCTS ───────── */
 exports.getProducts = async (req, res) => {
   try {
-    // 🔐 Check authentication
+    //Check authentication
     if (!req.user || !req.user.id) {
       return res.status(401).json({
         success: false,
@@ -205,7 +205,7 @@ exports.getProducts = async (req, res) => {
       });
     }
 
-    // 📦 Fetch only this farmer's products
+    //Fetch only this farmer's products
     const products = await Product.find({ farmer: req.user.id })
       .populate("farmer", "name farmName")
       .sort({ createdAt: -1 });
@@ -217,7 +217,7 @@ exports.getProducts = async (req, res) => {
     });
 
   } catch (error) {
-    console.error(error); // keep only error logs
+    console.error(error); //keep only error logs
     res.status(500).json({
       success: false,
       message: "Server Error"
