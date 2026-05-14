@@ -101,7 +101,7 @@ export default function Browse() {
       <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
         {products.map((p) => (
           <motion.div
-            key={p.id}
+            key={p._id}
             whileHover={{ scale: 1.04 }}
             className="bg-white rounded-xl overflow-hidden border border-green-200 shadow-sm"
           >
@@ -142,7 +142,7 @@ export default function Browse() {
               </p>
 
               <button
-  onClick={() => handleAddToCart(p.id)}
+  onClick={() => handleAddToCart(p._id)}
   className="mt-4 w-full bg-green-600 hover:bg-green-500 transition py-2 rounded-lg font-medium text-white"
 >
   Add to cart

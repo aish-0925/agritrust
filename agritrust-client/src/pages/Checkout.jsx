@@ -152,16 +152,20 @@ const placeOrder = async () => {
 
     const payload = {
 
-      items: items.map(item => ({
+      items: items.map(item => {
 
-  product:
-    item.product?._id ||
-    item.product ||
-    item._id,
+  console.log("CHECKOUT ITEM:", item);
 
-  quantity: item.quantity
+  return {
 
-})),
+    product:
+      typeof item.product === "object"
+        ? item.product._id
+        : item.product || item._id || item.id,
+
+    quantity: item.quantity
+  };
+}),
 
       paymentMethod:
         formData.paymentMethod,
