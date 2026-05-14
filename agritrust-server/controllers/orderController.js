@@ -77,7 +77,7 @@ exports.createOrder = async (req, res) => {
       }
 
       console.log("ITEM RECEIVED:", item);
-
+      console.log("PRODUCT ID:", item.product);
       const product = await Product.findById(
   item.product
 );
@@ -150,7 +150,7 @@ if (!product.isAvailable && product.quantity > 0) {
     $inc: { quantity: -item.quantity }
   },
   {
-    new: true
+    returnDocument: "after"
   }
 );
 

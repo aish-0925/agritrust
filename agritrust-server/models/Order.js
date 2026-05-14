@@ -255,15 +255,18 @@ const orderSchema = new mongoose.Schema(
    AUTO LOGIC
 ========================================================= */
 
-orderSchema.pre("save", function (next) {
+orderSchema.pre("save", function () {
 
   /* ================= GENERATE ORDER ID ================= */
 
   if (!this.orderId) {
 
-    const rand = Math.floor(1000 + Math.random() * 9000);
+    const rand = Math.floor(
+      1000 + Math.random() * 9000
+    );
 
-    this.orderId = `ORD-${Date.now()}-${rand}`;
+    this.orderId =
+      `ORD-${Date.now()}-${rand}`;
   }
 
   /* ================= ITEM TOTALS ================= */
@@ -273,13 +276,16 @@ orderSchema.pre("save", function (next) {
     this.items.forEach(item => {
 
       item.totalPrice =
-        item.quantity * item.pricePerUnit;
+        item.quantity *
+        item.pricePerUnit;
     });
 
-    this.pricing.itemsTotal = this.items.reduce(
-      (sum, item) => sum + item.totalPrice,
-      0
-    );
+    this.pricing.itemsTotal =
+      this.items.reduce(
+        (sum, item) =>
+          sum + item.totalPrice,
+        0
+      );
   }
 
   /* ================= GRAND TOTAL ================= */
@@ -291,9 +297,8 @@ orderSchema.pre("save", function (next) {
     this.pricing.platformFee -
     this.pricing.discountAmount;
 
-  this.totalAmount = this.pricing.grandTotal;
-
-  next();
+  this.totalAmount =
+    this.pricing.grandTotal;
 });
 
 
