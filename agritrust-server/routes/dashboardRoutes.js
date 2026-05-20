@@ -13,6 +13,13 @@ router.get(
   ctrl.getFarmerStats
 );
 
+router.get(
+  "/weather",
+  protect,
+  authorize("farmer"),
+  ctrl.getFarmerWeather
+);
+
 /* Restaurant */
 router.get(
   "/restaurant-stats",

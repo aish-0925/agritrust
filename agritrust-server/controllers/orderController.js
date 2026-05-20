@@ -345,21 +345,41 @@ exports.getOrders = async (req, res) => {
 
   try {
 
-    const orders = await Order.find({
-      $or: [
-        { farmer: req.user.id },
-        { restaurant: req.user.id }
-      ]
-    })
-    .populate("items.product")
-    .sort({ createdAt: -1 });
+    let query = {};
+
+    /* FARMER ORDERS */
+
+    if (req.user.role === "farmer") {
+
+      query.farmer = req.user.id;
+    }
+
+    /* RESTAURANT ORDERS */
+
+    if (req.user.role === "restaurant") {
+
+      query.restaurant = req.user.id;
+    }
+
+    const orders = await Order.find(query)
+
+      .populate("farmer", "name farmName")
+
+      .populate("restaurant", "name")
+
+      .populate("items.product", "name images")
+
+      .sort({ createdAt: -1 });
 
     res.json({
       success: true,
+      count: orders.length,
       orders
     });
 
   } catch (err) {
+
+    console.error(err);
 
     res.status(500).json({
       success: false,

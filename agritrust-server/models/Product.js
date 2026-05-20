@@ -14,6 +14,7 @@ const productSchema = new mongoose.Schema(
     required: true,
     trim: true
   },
+  
 
   category: {
     type: String,
@@ -32,14 +33,21 @@ const productSchema = new mongoose.Schema(
 
   farmName: String,
 
-  farmLocation: {
-    city: String,
-    state: String,
-    coordinates: {
-      lat: Number,
-      lng: Number
-    }
-  },
+ farmLocation: {
+
+  farmName: String,
+
+  village: String,
+
+  district: String,
+
+  state: String,
+
+  coordinates: {
+    lat: Number,
+    lng: Number
+  }
+},
 
   /* PRICING */
   price: {
@@ -101,6 +109,12 @@ const productSchema = new mongoose.Schema(
     default: true
   },
 
+  status: {
+  type: String,
+  enum: ["draft", "published"],
+  default: "draft"
+},
+
   stockStatus: {
   type: String,
   enum: ["in_stock", "low_stock", "out_of_stock"],
@@ -117,6 +131,33 @@ reviewsCount: {
   default: 0
 },
 
+/* REVIEWS */
+
+reviews: [
+  {
+    restaurant: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
+
+    name: String,
+
+    rating: {
+      type: Number,
+      min: 1,
+      max: 5
+    },
+
+    comment: String,
+
+    createdAt: {
+      type: Date,
+      default: Date.now
+    }
+  }
+],
+
+
 deliveryAvailable: {
   type: Boolean,
   default: true
@@ -132,8 +173,54 @@ coordinates: {
     type: [Number], // [lng, lat]
     index: "2dsphere"
   }
-}
+},
+/* INVENTORY */
 
+stockAlertThreshold: {
+  type: Number,
+  default: 10
+},
+
+/* BULK PRICING */
+
+bulkPricing: [
+  {
+    minQty: Number,
+    pricePerUnit: Number
+  }
+],
+
+/* AVAILABILITY */
+
+harvestDate: Date,
+
+availableTill: Date,
+
+shelfLife: String,
+
+storageInstructions: String,
+
+/* LOCATION */
+
+village: String,
+
+district: String,
+
+/* CERTIFICATIONS */
+
+certifications: [
+  {
+    type: String
+  }
+],
+
+/* TAGS */
+
+nutritionalTags: [
+  {
+    type: String
+  }
+]
 },
 {
   timestamps: true
@@ -175,6 +262,12 @@ productSchema.index({ farmer: 1 });
 productSchema.index({ category: 1 });
 productSchema.index({ demandLevel: 1 });
 productSchema.index({ price: 1 });
+
+productSchema.index({ "farmLocation.district": 1 });
+
+productSchema.index({ "farmLocation.village": 1 });
+
+productSchema.index({ availableTill: 1 });
 
 productSchema.methods.updateStockStatus = function () {
 

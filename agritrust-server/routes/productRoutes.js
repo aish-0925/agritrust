@@ -9,6 +9,17 @@ const multerErrorHandler = require("../middleware/multerErrorHandler");
 /*  BROWSE PRODUCTS (PUBLIC) */
 router.get("/browse", protect, authorize("restaurant"), ctrl.browseProducts);
 
+/* PUBLIC PRODUCT DETAILS */
+
+router.get(
+  "/browse/:id",
+  protect,
+  authorize("restaurant"),
+  ctrl.getPublicProductById
+);
+
+
+
 /* CREATE PRODUCT */
 router.post(
   "/",
@@ -25,6 +36,31 @@ router.get(
   protect,
   authorize("farmer"),
   ctrl.getProducts
+);
+
+router.post(
+  "/:id/review",
+  protect,
+  authorize("restaurant"),
+  ctrl.addReview
+);
+
+/* UPDATE REVIEW */
+
+router.put(
+  "/:id/review",
+  protect,
+  authorize("restaurant"),
+  ctrl.updateReview
+);
+
+/* DELETE REVIEW */
+
+router.delete(
+  "/:id/review",
+  protect,
+  authorize("restaurant"),
+  ctrl.deleteReview
 );
 
 /* GET SINGLE PRODUCT (ONLY OWN) */

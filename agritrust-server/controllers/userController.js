@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const axios = require("axios");
 
 /* ================= GET PROFILE ================= */
 exports.getProfile = async (req, res) => {
@@ -10,10 +11,10 @@ exports.getProfile = async (req, res) => {
     }
 
     // Safe location log
-    if (user.location) {
-      console.log("LAT:", user.location.lat);
-      console.log("LNG:", user.location.lng);
-    }
+    // if (user.location) {
+    //   console.log("LAT:", user.location.lat);
+    //   console.log("LNG:", user.location.lng);
+    // }
 
     res.json(user);
 
@@ -52,14 +53,46 @@ exports.updateProfile = async (req, res) => {
     });
 
     /* ================= LOCATION ================= */
-    if (req.body.lat !== undefined && req.body.lng !== undefined) {
-      const lat = parseFloat(req.body.lat);
-      const lng = parseFloat(req.body.lng);
+ /* ================= AUTO LOCATION ================= */
 
-      if (!isNaN(lat) && !isNaN(lng)) {
-        updates.location = { lat, lng };
+if (
+  req.body.city &&
+  req.body.state
+) {
+
+  try {
+
+    const geoRes = await axios.get(
+      "https://api.openweathermap.org/geo/1.0/direct",
+      {
+        params: {
+          q: `${req.body.city},${req.body.state},India`,
+          limit: 1,
+          appid: process.env.WEATHER_API_KEY
+        }
       }
+    );
+
+    console.log("GEO RESPONSE:", geoRes.data);
+
+    if (geoRes.data.length > 0) {
+
+      updates.location = {
+        lat: geoRes.data[0].lat,
+        lng: geoRes.data[0].lon
+      };
+
+      console.log("UPDATES OBJECT:", updates);
+
     }
+
+  } catch (err) {
+
+    console.error("Geocoding failed:", err.message);
+
+  }
+
+}
 
     /* ================= FARMER ================= */
     if (user.role === "farmer") {
@@ -113,7 +146,7 @@ if (
 
       /* ===== SAFE ARRAY PARSING ===== */
       try {
-        if (profile.role === "restaurant") {
+        if (user.role === "restaurant") {
         if (req.body.cuisineTypes) {
           updates.cuisineTypes = req.body.cuisineTypes.startsWith("[")
             ? JSON.parse(req.body.cuisineTypes)
@@ -178,11 +211,11 @@ if (
     /* ================= DEBUG ================= */
     // console.log("BODY:", req.body);
     // console.log("UPDATES:", updates);
-
+console.log("FINAL UPDATE DATA:", updates);
     /* ================= UPDATE ================= */
     const updatedUser = await User.findByIdAndUpdate(
       req.user.id,
-      { $set: updates },
+       updates,
       {
         returnDocument: "after",
         runValidators: false

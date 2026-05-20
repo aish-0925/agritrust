@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
+const axios = require("axios");
 
 /* Dashboard basic info */
 
@@ -63,6 +64,73 @@ exports.getFarmerStats = async (req,res)=>{
  catch(error){
   res.status(500).json({error:error.message});
  }
+
+};
+
+exports.getFarmerWeather = async (req, res) => {
+
+  try {
+
+    const farmer = await User.findById(req.user.id);
+
+    if (!farmer) {
+      return res.status(404).json({
+        message: "Farmer not found"
+      });
+    }
+
+    console.log("FARMER:", farmer);
+    console.log("LOCATION:", farmer.location);
+
+    if (
+      !farmer.location ||
+      !farmer.location.lat ||
+      !farmer.location.lng
+    ) {
+      return res.status(400).json({
+        message: "Location not available"
+      });
+    }
+
+    const { lat, lng } = farmer.location;
+
+    const weatherRes = await axios.get(
+      "https://api.openweathermap.org/data/2.5/weather",
+      {
+        params: {
+          lat,
+          lon: lng,
+          appid: process.env.WEATHER_API_KEY,
+          units: "metric"
+        }
+      }
+    );
+
+    const data = weatherRes.data;
+
+    res.json({
+      city: data.name,
+      temperature: data.main.temp,
+      humidity: data.main.humidity,
+      condition: data.weather[0].main,
+      description: data.weather[0].description,
+      icon: data.weather[0].icon,
+      windSpeed: data.wind.speed,
+      rain:
+        data.rain?.["1h"] ||
+        data.rain?.["3h"] ||
+        0
+    });
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      message: "Failed to fetch weather"
+    });
+
+  }
 
 };
 
