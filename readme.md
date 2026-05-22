@@ -65,6 +65,22 @@ The platform helps farmers sell products without middlemen while allowing restau
 
 ---
 
+
+# 📸 Screenshots
+
+## Home Page
+![Home Page](./screenshots/home.png)
+
+## Farmer Dashboard
+![Login](./screenshots/login.png)
+
+## Product Listing
+![Product](./screenshots/marketplace.png)
+
+## Restaurant Dashboard
+![Add Product](./screenshots/add.png)
+
+---
 # Project Structure
 
 ```bash
@@ -90,17 +106,3 @@ AgriTrust/
 │   └── package.json
 │
 └── README.md
-
-# 📸 Screenshots
-
-## Home Page
-![Home Page](./screenshots/home.png)
-
-## Farmer Dashboard
-![Login](./screenshots/login.png)
-
-## Product Listing
-![Product](./screenshots/marketplace.png)
-
-## Restaurant Dashboard
-![Add Product](./screenshots/add.png)
